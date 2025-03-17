@@ -1,5 +1,3 @@
-package buildToTestLab;
-
 import java.util.Scanner;
 
 public class Date
@@ -143,6 +141,11 @@ public class Date
             return 0; //Needed to keep the compiler happy
         }
     }
+    
+    public Date addOneDay(){
+ 	   System.out.println("Date.addOneDay() is not yet implemented.");
+ 	   return this;
+ 	}
 
     public int getDay( )
     {
