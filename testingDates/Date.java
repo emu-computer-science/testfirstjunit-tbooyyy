@@ -6,6 +6,8 @@ public class Date
     private int day;
     private int year; //a four digit number.
 
+    int[] daysInMonth = {31,28,31,30,31,30,31,31,30,31,30,31};
+    
     public Date( )
     {
         this("January", 1, 1000);  // Could have used setDate instead
@@ -51,8 +53,15 @@ public class Date
         }
         else
         {
-            System.out.println("Fatal Error in setDate(int, int, int)");
-            System.exit(0);
+            //System.out.println("Fatal Error in setDate(int, int, int)");
+            //System.exit(0);
+        	if(this.month == null) {
+        		if(year < 0) {
+        			year = 0;
+        		}
+        		setDate(year);
+        	}
+        	return;
         }
     }
 
@@ -66,8 +75,15 @@ public class Date
         }
         else
         {
-            System.out.println("Fatal Error in setDate(String,int, int)");
-            System.exit(0);
+            //System.out.println("Fatal Error in setDate(String,int, int)");
+            //System.exit(0);
+        	if(this.month == null) {
+        		if(year < 0) {
+        			year = 0;
+        		}
+        		setDate(year);
+        	}
+        	return;
         }
     }
 
@@ -108,7 +124,7 @@ public class Date
             this.day = day;
     }
 
-    public int getMonth( )
+    public int getMonth(String month)
     {
         if (month.equals("January"))
             return 1;
@@ -142,9 +158,24 @@ public class Date
         }
     }
     
+    public int getMonth()
+    {
+        return getMonth(month);
+    }
+    
     public Date addOneDay(){
- 	   System.out.println("Date.addOneDay() is not yet implemented.");
- 	   return this;
+    	day = day+1;
+    	if(day > daysInMonth[getMonth()-1]) {
+    		day = 1;
+    		int nextMonth = getMonth()+1;
+    		if(nextMonth > 12) {
+    			year = year+1;
+    			setMonth(1);
+    		}else {
+    			setMonth(nextMonth);
+    		}
+    	}
+    	return this;
  	}
 
     public int getDay( )
@@ -162,8 +193,10 @@ public class Date
         return (month + " " + day + ", " + year);
     }
 
-    public boolean equals(Date otherDate)
+    @Override
+    public boolean equals(Object otherDateObj)
     {
+    	Date otherDate = (Date) otherDateObj;
         return ( (month.equals(otherDate.month))
                   && (day == otherDate.day) && (year == otherDate.year) );
     }
@@ -207,7 +240,7 @@ public class Date
     private boolean dateOK(String monthString, int dayInt, int yearInt)
     {
         return ( monthOK(monthString) &&
-                 (dayInt >= 1) && (dayInt <= 31) &&
+                 (dayInt >= 1) && (dayInt <= daysInMonth[getMonth(monthString)-1]) &&
                  (yearInt >= 1000) && (yearInt <= 9999) );
     }
 

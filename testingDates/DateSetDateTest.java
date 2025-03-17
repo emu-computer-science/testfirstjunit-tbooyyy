@@ -14,8 +14,8 @@ public class DateSetDateTest {
 	@Test
 	public void testSetDate2() {
 		Date originalDate = new Date(6,1,1999);
-		originalDate.setDate(1,2,2022);
-		assertEquals(new Date(1,2,2022),originalDate);
+		originalDate.setDate(1,77,2022);
+		assertEquals(new Date(6,1,1999),originalDate); // should remain unchanged
 	}
 	
 	@Test
@@ -23,6 +23,13 @@ public class DateSetDateTest {
 		Date originalDate = new Date(12,31,2027);
 		originalDate.setDate(9,6,2020);
 		assertEquals(new Date(9,6,2020),originalDate);
+	}
+	
+	@Test
+	public void testSetDate4() {
+		Date originalDate = new Date(6,1,1999);
+		originalDate.setDate(52,12,2022);
+		assertEquals(new Date(6,1,1999),originalDate); // should remain unchanged
 	}
 
 }
